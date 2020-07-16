@@ -1,10 +1,31 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
+# email
+# import django
+# from django.conf import settings
+# from django.core.mail import send_mail
+
+
+from .models import News
+
 
 def index(request):
-    return HttpResponse('Hello world')
+    news = News.objects.all
+    context = {
+        'news': news,
+        'title': 'Список новостей'
+    }
+    return render(request, template_name='news/index.html', context=context)
 
 
-def test(request):
-    return HttpResponse('<h1>Тестовая страница</h1>')
+# email
+# def sendemail(request):
+#     email = request.POST.get('email', '')
+#     data = """
+# Hello there! Mr. Kenoby
+#
+#     """
+#     send_mail('Welcome!', data, "Pavel",
+#               [email], fail_silently=False)
+#     return render(request, 'email.html')
